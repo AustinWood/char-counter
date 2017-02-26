@@ -39,8 +39,19 @@ puts "\n#{alphabets}\n\n"
 
 alphabets.each do |name, letters|
   total = 0
-  letters.each do |letter|
-    total += letter.last
+  letters.each do |letter, count|
+    total += count
   end
   puts "Total code chars in #{name} corpus: #{total}"
+
+  sorted = alphabets[name].sort_by { |_key, value| value }.reverse.to_h
+
+  sorted.each do |letter, count|
+
+    weight = ((count.to_f / total.to_f) * 100.0)
+    puts "#{letter}   #{count}    #{weight.round(3)}%"
+    alphabets[name][letter] = weight
+  end
+
+  puts "\n"
 end

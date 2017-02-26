@@ -1,4 +1,4 @@
-file_extensions = %w(swift rb)
+file_extensions = %w(swift rb js)
 
 blacklist = [
   *('A'..'Z'), # Exclude capital
@@ -54,4 +54,16 @@ alphabets.each do |name, letters|
   end
 
   puts "\n"
+end
+
+final_count = {}
+alphabets.each do |name, letters|
+  final_count = final_count.merge(alphabets[name]){|key, oldval, newval| newval + oldval}
+end
+
+sorted = final_count.sort_by { |_key, value| value }.reverse.to_h
+
+sorted.each do |letter, weight|
+  adjusted_weight = weight / alphabets.count
+  puts "#{letter}   #{adjusted_weight.round(3)}%"
 end

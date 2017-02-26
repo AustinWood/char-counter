@@ -1,5 +1,14 @@
 file_extensions = %w(swift rb)
 
+blacklist = [
+  *('A'..'Z'), # Exclude capital
+  *('a'..'z'), # and lowercase letters.
+  *('а'..'я'), # Cyrillic alphabet, too
+  *('А'..'Я'),
+  *('0'..'9'), # Numbers 0 through 9
+  ' ', "\n"
+]
+
 alphabets = {}
 file_extensions.each do |ext|
   alphabets[ext] = Hash.new(0)
@@ -17,6 +26,7 @@ file_extensions.each do |ext|
       # letters = line.downcase.chars
       letters = line.chars
       letters.each do |letter|
+        next if blacklist.include?(letter)
         alphabets[ext][letter] += 1
       end
     end

@@ -6,7 +6,7 @@ blacklist = [
   *('а'..'я'), # Cyrillic alphabet, too
   *('А'..'Я'),
   *('0'..'9'), # Numbers 0 through 9
-  ' ', "\n"
+  ' ', "\n", "	"
 ]
 
 alphabets = {}
@@ -63,7 +63,20 @@ end
 
 sorted = final_count.sort_by { |_key, value| value }.reverse.to_h
 
+puts "            avg   #{file_extensions.join("      ")}"
+i = 1
 sorted.each do |letter, weight|
   adjusted_weight = weight / alphabets.count
-  puts "#{letter}   #{adjusted_weight.round(3)}%"
+
+  output_str = "#{i}"
+  output_str += " " if i < 10
+  output_str += "   #{letter}   #{adjusted_weight.round(3)}%"
+
+  file_extensions.each do |ext|
+    output_str += "   #{(alphabets[ext][letter]).round(2)}%"
+  end
+
+
+  puts output_str
+  i += 1
 end

@@ -1,8 +1,11 @@
 file_extensions = %w(swift rb)
-file_extensions.each do |ext|
 
-  alphabet = {}
-  alphabet.default = 0
+alphabets = {}
+file_extensions.each do |ext|
+  alphabets[ext] = Hash.new(0)
+end
+
+file_extensions.each do |ext|
 
   Dir.glob("corpus/**/*.#{ext}") do |file|
     # puts "working on: #{file}"
@@ -14,12 +17,12 @@ file_extensions.each do |ext|
       # letters = line.downcase.chars
       letters = line.chars
       letters.each do |letter|
-        alphabet[letter] += 1
+        alphabets[ext][letter] += 1
       end
     end
   end
 
-  puts "File extension: #{ext}"
-  p alphabet
-  puts "\n"
 end
+
+p alphabets
+puts "\n"

@@ -34,5 +34,13 @@ file_extensions.each do |ext|
 
 end
 
-p alphabets
-puts "\n"
+puts "\nRaw character counts:"
+puts "\n#{alphabets}\n\n"
+
+alphabets.each do |name, letters|
+  total = 0
+  letters.each do |letter|
+    total += letter.last
+  end
+  puts "Total code chars in #{name} corpus: #{total}"
+end
